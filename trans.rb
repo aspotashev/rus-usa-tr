@@ -1,18 +1,5 @@
 #!/usr/bin/ruby
 
-#А, а	A	 	К, к	K	 	Х, х	KH
-#Б, б	B	 	Л, л	L	 	Ц, ц	TS
-#В, в	V	 	М, м	M	 	Ч, ч	CH
-#Г, г	G	 	Н, н	N	 	Ш, ш	SH
-#Д, д	D	 	О, о	O	 	Щ, щ	SHCH
-#Е, е	E, YE	 	П, п	P	 	ъ	 
-#Ё, e	E, YE	 	Р, р	R	 	ы	Y
-#Ж, ж	ZH	 	С, с	S	 	ь	 
-#З, з	Z	 	Т, т	T	 	Э, э	E
-#И, и	I	 	У, у	U	 	Ю, ю	YU
-#Й, й	Y	 	Ф, ф	F	 	Я, я	YA
-
-
 tr = {
 ' ' => ' ',
 'А' => 'A',
@@ -40,19 +27,32 @@ tr = {
 'Ч' => 'CH',
 'Ш' => 'SH',
 'Щ' => 'SHCH',
+'Ъ' => '',
 'Ы' => 'Y',
+'Ь' => '',
 'Э' => 'E',
 'Ю' => 'YU',
 'Я' => 'YA',
 }
 
-#input = gets.strip.split(//u)
-#p input
+input = gets.strip.split(//u)
 
-gets.strip.split(//u).each do |sym|
-	STDERR.puts 'ERROR: symbol not found (' + sym + ')' if not tr[sym]
+input.each_index do |index|
+	sym = input[index]
 
-	print tr[sym]
+	if 'ЕЁ'.split(//u).include?(sym)
+		prev = input[index - 1]
+		if not prev or 'АЕЁИОУЪЫЬЭЮЯ'.split(//u).include?(prev)
+			res = 'YE'
+		else
+			res = 'E'
+		end
+	else
+		STDERR.puts 'ERROR: symbol not found (' + sym + ')' if not tr[sym]
+		res = tr[sym]
+	end
+
+	print res
 end
 puts
 
