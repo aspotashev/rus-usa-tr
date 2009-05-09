@@ -1,5 +1,7 @@
 #!/usr/bin/ruby
 
+# http://russian.moscow.usembassy.gov/transliteration.html
+
 tr = {
 ' ' => ' ',
 'А' => 'A',
